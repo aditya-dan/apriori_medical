@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnosis Prediction</title>
+    <style>
+        body, html{
+            margin:0;
+            font-family:"Lato", sans-serif;
+            font-weight:400;
+            line-height:1.4em;
+            color:#fff;
+        }
+        .diagnosis{
+            width:100%;
+            margin:0;
+            border-top:1px solid #dadada;
+            border-right:1px solid #dadada;
+
+        }
+        .diagnosis tr{
+            width:100%;
+        }
+        .diagnosis tr td, .diagnosis tr th{
+            border-bottom:1px solid #dadada;
+            border-left:1px solid #dadada;
+            padding:2px 5px;
+
+        }
+
+        .container{
+            display:block;
+            width:100%;
+        }
+        .wrapper{
+            display:block;
+            margin:0 auto;
+            width:1200px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="wrapper">
+        <div style="float:left;background-color: #3978D3;padding:0 15px">
+            <h3>
+                Patient:&nbsp;{{fname}}&nbsp;{{lname}}&nbsp;({{gender}})
+            </h3>
+
+            <table class="diagnosis" style="width:60%">
+                <tr>
+                    <td>Symptoms as stated by the patient</td>
+                    <td>{{results[3]}}</td>
+                </tr>
+                <tr>
+                    <td>Symptoms extracted for diagnosis</td>
+                    <td>{{results[2]}}</td>
+                </tr>
+
+            </table>
+            <h3>
+                Following are the possible diagnoses:
+            </h3>
+
+            <table class="diagnosis">
+                <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Diagnosis</th>
+                    <th>Symptoms</th>
+                    <th>Max Support</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for item in results[0]%}
+                <tr>
+                    <td style="text-align:right;">{{loop.index}}</td>
+                    <td>{{item.description}}</td>
+                    <td>
+                        {%for symptom in item.symptom_list%}
+                        {{symptom}}
+                        {% if not loop.last %}
+                        ,&nbsp;
+                        {% endif %}
+                        {%endfor%}
+                    </td>
+                    <td style="text-align:right;">
+                        {{item.max_support}}%
+                    </td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <img src="{{results[1]}}">
+        </div>
+    </div>
+</div>
+</body>
+</html>

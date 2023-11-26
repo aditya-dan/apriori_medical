@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnosis Prediction</title>
+</head>
+<body>
+<p>
+{%for item in results[0]%}
+    {%if item == "The following diagnoses are possible:"%}
+    <b>{{item}}</b>
+    {%else%}
+    {{item}}<br>
+    {%endif%}
+{%endfor%}
+</p>
+<div>
+    <img src = "{{results[1]}}">
+</div>
+</body>
+</html>
